@@ -4,7 +4,8 @@ import { Dispatch } from "redux";
 import { GatsbyLinkProps } from "gatsby-link";
 import { StoreState } from "../../store";
 import { MenuProps, MenuItem } from "../Menu";
-import { Menu, Icon, Sidebar,DropdownCustom} from "semantic-ui-react";
+import { Menu, Icon, Sidebar } from "semantic-ui-react";
+import DropdownCustom from "../DropdownCustom";
 import { SemanticICONS } from "semantic-ui-react";
 
 interface SidebarMenuProps extends MenuProps {
@@ -50,7 +51,6 @@ export const SidebarMenu = ({ items, pathname, Link, visible }: SidebarMenuProps
           className="mobile only" 
           item 
           leftIcon={item.icon + " big"} 
-          dropdownIcon="dropdown big"
           simple 
           inline
           active={active}>
@@ -76,8 +76,15 @@ export const SidebarMenu = ({ items, pathname, Link, visible }: SidebarMenuProps
           })}
         </DropdownCustom.Menu></DropdownCustom>;
         }
+        if (item.path.startsWith("http")) {
+          return (
+            <Menu.Item as="a" href={item.path} target="_blank" rel="noopener noreferrer" key={item.path}>
+              <Icon name={item.icon as SemanticICONS} />
+              {item.name}
+            </Menu.Item>);
+        }
         return (
-          <Menu.Item as={Link} to={item.path} active={active} key={item.path} onClick={() => {document.getElementById("sidebar").classList.remove("visible");}} >
+          <Menu.Item as={Link} to={item.path} active={active} key={item.path} onClick={() => {document.getElementById("SidebarId").classList.remove("visible");}} >
             <Icon name={item.icon as SemanticICONS} />
             {item.name}
           </Menu.Item>);

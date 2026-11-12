@@ -7,6 +7,7 @@ import BlogTitle from "../components/BlogTitle";
 import TagsCard from "../components/TagsCard/TagsCard";
 import BlogPagination from "../components/BlogPagination/BlogPagination";
 import { get } from "lodash";
+import { coverImage } from "../utils/coverImage";
 import {withLayout, LayoutProps} from "../components/Layout";
 import { MarkdownRemark } from "../graphql-types";
 
@@ -32,16 +33,13 @@ const Blog = (props: BlogProps) => {
       {posts.map(({ node }: {node: MarkdownRemark}) => {
         const { frontmatter, timeToRead, fields: { slug }, excerpt } = node;
         const avatar = frontmatter.author.avatar.children[0] as ImageSharp;
-        const cover = {
-          src: withPrefix(get(frontmatter, "image.children.0.fixed", {}).src),
-          srcSet: Array(get(frontmatter,"image.children.0.fixed",{}).srcSet.split("\n").map((element)=>withPrefix(element)).join('\n'))
-        };
+        const cover = coverImage(frontmatter, "image.children.0.fixed.src");
         const extra = (
           <Comment.Group>
             <Comment>
               <Comment.Avatar
-                src={avatar.fixed.src}
-                srcSet={avatar.fixed.srcSet}
+                src={withPrefix(avatar.fixed.src)}
+                
               />
               <Comment.Content>
                 <Comment.Author style={{ fontWeight: 400 }}>
@@ -107,7 +105,7 @@ export const pageQuery = graphql`
 query Blog {
   # Get tags
   tags: allMarkdownRemark(filter: {frontmatter: {draft: {ne: true}}}) {
-    group(field: frontmatter___tags) {
+    group(field: {frontmatter: {tags: SELECT}}) {
       fieldValue
       totalCount
     }
@@ -115,7 +113,7 @@ query Blog {
 
   # Get posts
   posts: allMarkdownRemark(
-    sort: { order: DESC, fields: [frontmatter___updatedDate] },
+    sort: {frontmatter: {updatedDate: DESC}},
     filter: {
       frontmatter: { draft: { ne: true } }
     },
@@ -137,21 +135,19 @@ query Blog {
           image {
           	children {
               ... on ImageSharp {
-                fixed(width: 300, height: 300) {
-                  src
-                  srcSet
-                }
+                fixed: resize(width: 300, height: 300, cropFocus: CENTER) {
+                    src
+                  }
               }
             }
           }
           author {
-            id
+            id: jsonId
             avatar {
               children {
                 ... on ImageSharp {
-                  fixed(width: 35, height: 35) {
+                  fixed: resize(width: 35, height: 35, cropFocus: CENTER) {
                     src
-                    srcSet
                   }
                 }
               }

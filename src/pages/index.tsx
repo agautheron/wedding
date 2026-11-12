@@ -21,7 +21,7 @@ const IndexPage = (props: LayoutProps) =>
       <Segment className="firstSegment">
        {/* <Container text> */}
         <Header inverted as="h1">&#x124;arie<br/>&#38;<br/>&#x125;rthur
-          <Header.Subheader inverted as="h2">13 juillet 2020</Header.Subheader>
+          <Header.Subheader>13 juillet 2020</Header.Subheader>
           </Header>
         {/* </Container> */}
       </Segment>
@@ -35,7 +35,7 @@ const IndexPage = (props: LayoutProps) =>
       <Grid stackable verticalAlign="middle" className="container">
         <Grid.Row centered className="getMarried">
           <h1>
-            <span class="color1">N</span><span class="color2">o</span><span class="color3">u</span><span class="color4">s</span> <span class="color5">n</span><span class="color6">o</span><span class="color7">u</span><span class="color8">s</span> <span class="color9">m</span><span class="color10">a</span><span class="color11">r</span><span class="color12">i</span><span class="color13">o</span><span class="color14">n</span><span class="color15">s</span> <span class="color16">!</span> </h1>
+            <span className="color1">N</span><span className="color2">o</span><span className="color3">u</span><span className="color4">s</span> <span className="color5">n</span><span className="color6">o</span><span className="color7">u</span><span className="color8">s</span> <span className="color9">m</span><span className="color10">a</span><span className="color11">r</span><span className="color12">i</span><span className="color13">o</span><span className="color14">n</span><span className="color15">s</span> <span className="color16">!</span> </h1>
       <p><br/><br/>
      {/* Afin de répondre à un maximum de vos questions, vous trouverez sur ce site une multitude d'informations pour notre mariage. <br/>
       Que vous veniez en Normandie pour la première fois ou que vous soyez des grands habitués, vous trouverez quelques propositions de balades, de visites ainsi que quelques logements que nous avons repéré pour vous.*/}
@@ -79,7 +79,7 @@ const IndexPage = (props: LayoutProps) =>
     <Segment vertical className="stripe alternate feature">
       <Grid columns="3" textAlign="center" divided relaxed stackable className="container">
       <Grid.Row centered className="getMarried">
-      <h1><span class="color5">O</span><span class="color4">s</span><span class="color7">e</span><span class="color2">z</span> <span class="color6">l</span><span class="color8">a</span> <span class="color9">c</span><span class="color10">o</span><span class="color11">u</span><span class="color12">l</span><span class="color16">e</span><span class="color9">u</span><span class="color13">r</span> <span class="color1">!</span> </h1>
+      <h1><span className="color5">O</span><span className="color4">s</span><span className="color7">e</span><span className="color2">z</span> <span className="color6">l</span><span className="color8">a</span> <span className="color9">c</span><span className="color10">o</span><span className="color11">u</span><span className="color12">l</span><span className="color16">e</span><span className="color9">u</span><span className="color13">r</span> <span className="color1">!</span> </h1>
           <p><br/>
           Femmes comme Hommes, n’hésitez pas à vous vêtir de couleur pour que la fête prenne une belle allure estivale ! <br/> Pantalon, robe, salopette et autres tenues de couleur sont bienvenues !
           <br/><br/><br/>

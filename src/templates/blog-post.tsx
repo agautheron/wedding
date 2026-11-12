@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Link, withPrefix } from "gatsby";
 import { get } from "lodash";
+import { coverImage } from "../utils/coverImage";
 import { Header, Container, Segment, Icon, Label, Button, Grid, Card, Image, Item, Comment } from "semantic-ui-react";
 import { MarkdownRemark, ImageSharp, MarkdownRemarkConnection, Site } from "../graphql-types";
 import BlogTitle from "../components/BlogTitle";
@@ -26,13 +27,13 @@ const BlogPostPage = (props: BlogPostProps) => {
   const recents = props.data.recents.edges
       .map(({ node }) => {
       const recentAvatar = node.frontmatter.author.avatar.children[0] as ImageSharp;
-      const recentCover = get(node, "frontmatter.image.children.0.fixed", {});
+      const recentCover = coverImage(node, "frontmatter.image.children.0.fixed.src");
       const extra = (
         <Comment.Group>
           <Comment>
             <Comment.Avatar
-              src={recentAvatar.fixed.src}
-              srcSet={recentAvatar.fixed.srcSet}
+              src={withPrefix(recentAvatar.fixed.src)}
+              
             />
             <Comment.Content>
               <Comment.Author style={{ fontWeight: 400 }}>
@@ -59,19 +60,20 @@ const BlogPostPage = (props: BlogPostProps) => {
       }
     });
 
-  const cover = get(frontmatter, "image.children.0.fixed", {} );
+  const cover = coverImage(frontmatter, "image.children.0.fixed.src");
   return (
     <Container>
       <a
-        href="javascript:history.back()"
+        href="#"
+        onClick={(e) => { e.preventDefault(); window.history.back(); }}
        ><Icon name="arrow left"></Icon> Retour</a>
       <BlogTitle />
       <Segment vertical style={{ border: "none" }}>
       {/*  <Item.Group>
           <Item>
             <Item.Image size="tiny"
-              src={avatar.fixed.src}
-              srcSet={avatar.fixed.srcSet}
+              src={withPrefix(avatar.fixed.src)}
+              
               circular
             />
             <Item.Content>
@@ -87,10 +89,7 @@ const BlogPostPage = (props: BlogPostProps) => {
         </Header.Subheader>
         </Header>
       </Segment>
-      <Image
-        {...cover}
-        fluid
-      /> 
+      {cover && <Image {...cover} fluid />}
       <Segment vertical
         style={{ border: "none" }}
         dangerouslySetInnerHTML={{
@@ -136,16 +135,15 @@ export const pageQuery = graphql`
       tags
       category
       author {
-        id
+        id: jsonId
         bio
         twitter
         avatar {
           children {
             ... on ImageSharp {
-              fixed(width: 80, height: 80, quality: 100) {
-                src
-                srcSet
-              }
+              fixed: resize(width: 80, height: 80, quality: 100, cropFocus: CENTER) {
+                    src
+                  }
             }
           }
         }
@@ -156,10 +154,9 @@ export const pageQuery = graphql`
       image {
         children {
           ... on ImageSharp {
-            fixed(width: 900, height: 300, quality: 100) {
-              src
-              srcSet
-            }
+            fixed: resize(width: 900, height: 300, quality: 100, cropFocus: CENTER) {
+                    src
+                  }
           }
         }
       }
@@ -171,7 +168,7 @@ export const pageQuery = graphql`
       frontmatter: {draft: {ne: true}},
       # fileAbsolutePath: {regex: "/blog/"},
     },
-    sort: {order: DESC, fields: [frontmatter___updatedDate]},
+    sort: {frontmatter: {updatedDate: DESC}},
  #   limit: 4
   ) {
     edges {
@@ -187,21 +184,19 @@ export const pageQuery = graphql`
           image {
             children {
               ... on ImageSharp {
-                fixed(width: 300, height: 100) {
-                  src
-                  srcSet
-                }
+                fixed: resize(width: 300, height: 100, cropFocus: CENTER) {
+                    src
+                  }
               }
             }
           }
           author {
-            id
+            id: jsonId
             avatar {
               children {
                 ... on ImageSharp {
-                  fixed(width: 36, height: 36) {
+                  fixed: resize(width: 36, height: 36, cropFocus: CENTER) {
                     src
-                    srcSet
                   }
                 }
               }
