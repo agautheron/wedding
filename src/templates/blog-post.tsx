@@ -63,11 +63,11 @@ const BlogPostPage = (props: BlogPostProps) => {
   const cover = coverImage(frontmatter, "image.children.0.fixed.src");
   return (
     <Container>
+      <BlogTitle />
       <a
         href="#"
         onClick={(e) => { e.preventDefault(); window.history.back(); }}
        ><Icon name="arrow left"></Icon> Retour</a>
-      <BlogTitle />
       <Segment vertical style={{ border: "none" }}>
       {/*  <Item.Group>
           <Item>
