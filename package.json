@@ -14,6 +14,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "babel-plugin-styled-components": "^2.1.4",
+    "file-type": "file:vendor/file-type-compat",
     "gatsby": "^5.14.0",
     "gatsby-plugin-google-analytics": "^5.14.0",
     "gatsby-plugin-manifest": "^5.14.0",
@@ -36,8 +38,7 @@
     "react-redux": "^9.1.2",
     "redux": "^5.0.1",
     "semantic-ui-react": "^2.1.5",
-    "styled-components": "^6.1.13",
-    "babel-plugin-styled-components": "^2.1.4"
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@types/lodash": "^4.17.13",
@@ -70,6 +71,7 @@
     "serialize-javascript": "^7.1.4",
     "@graphql-tools/utils": "^12.0.1",
     "webpack-dev-middleware": "^7.4.5",
-    "@parcel/reporter-dev-server": "^2.16.4"
+    "@parcel/reporter-dev-server": "^2.16.4",
+    "file-type": "$file-type"
   }
 }
