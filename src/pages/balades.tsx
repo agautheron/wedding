@@ -7,9 +7,9 @@ import BlogTitle from "../components/BlogTitle";
 import TagsCard from "../components/TagsCard/TagsCard";
 import BlogPagination from "../components/BlogPagination/BlogPagination";
 import { get } from "lodash";
-import {withLayout, LayoutProps, menuItems, subItems} from "../components/Layout";
+import { coverImage } from "../utils/coverImage";
+import { withLayout, LayoutProps, findMenuItem } from "../components/Layout";
 import { MarkdownRemark } from "../graphql-types";
-import { isNull } from "util";
 
 interface BlogProps extends LayoutProps {
   data: {
@@ -26,31 +26,20 @@ const BlogPage = (props: BlogProps) => {
   const posts = props.data.posts.edges;
   const { pathname } = props.location;
   const pageCount = Math.ceil(props.data.posts.totalCount / 100);
-  var root = menuItems.find(e=>withPrefix(e.path) == pathname) ;
- if(root==undefined){
-    root = subItems.find(function(element) {
-      return pathname.includes(element.path)});
-  }
-  /*if(isNull({root})){
-    const root = {icon:"",title:""};
-  }*/
-  console.log(root)
+  const root = findMenuItem("/balades/");
   const Posts = (
     /* <Container>*/
       posts.map(({ node }: {node: MarkdownRemark}) => {
         const { frontmatter, timeToRead, fields: { slug }, excerpt } = node;
         const avatar = frontmatter.author.avatar.children[0] as ImageSharp;
-        const cover = {
-          src: withPrefix(get(frontmatter, "image.children.0.fixed", {}).src),
-          srcSet: Array(get(frontmatter,"image.children.0.fixed",{}).srcSet.split("\n").map((element)=>withPrefix(element)).join('\n'))
-        };
+        const cover = coverImage(frontmatter, "image.children.0.fixed.src");
 
         const extra = (
           <Comment.Group>
             <Comment>
               <Comment.Avatar
-                src={avatar.fixed.src}
-                srcSet={avatar.fixed.srcSet}
+                src={withPrefix(avatar.fixed.src)}
+                
               />
               <Comment.Content>
                 <Comment.Author style={{ fontWeight: 400 }}>
@@ -127,7 +116,7 @@ query PageBalades {
   tags: allMarkdownRemark(filter: {
     frontmatter: {draft: {ne: true}}, 
     fileAbsolutePath: { regex: "/balades/"}}) {
-    group(field: frontmatter___tags) {
+    group(field: {frontmatter: {tags: SELECT}}) {
       fieldValue
       totalCount
     }
@@ -135,7 +124,7 @@ query PageBalades {
 
   # Get posts
   posts: allMarkdownRemark(
-    sort: { order: DESC, fields: [frontmatter___updatedDate] },
+    sort: {frontmatter: {updatedDate: DESC}},
     filter: {
       frontmatter: { draft: { ne: true } },
       fileAbsolutePath: { regex: "/balades/" }
@@ -158,21 +147,19 @@ query PageBalades {
           image {
           	children {
               ... on ImageSharp {
-                fixed(width: 300, height: 300) {
-                  src
-                  srcSet
-                }
+                fixed: resize(width: 300, height: 300, cropFocus: CENTER) {
+                    src
+                  }
               }
             }
           }
           author {
-            id
+            id: jsonId
             avatar {
               children {
                 ... on ImageSharp {
-                  fixed(width: 35, height: 35) {
+                  fixed: resize(width: 35, height: 35, cropFocus: CENTER) {
                     src
-                    srcSet
                   }
                 }
               }

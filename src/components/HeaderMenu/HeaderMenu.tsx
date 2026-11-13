@@ -2,9 +2,9 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { Dispatch } from "redux";
 import { toggleSidebar } from "../../store";
-import { Container,  Menu, Icon, DropdownCustom, Segment} from "semantic-ui-react";
+import { Container, Menu, Icon, Segment } from "semantic-ui-react";
+import DropdownCustom from "../DropdownCustom";
 import { MenuProps } from "../Menu";
-import StickyHeader from 'react-sticky-header';
 
 interface HeaderMenuProps extends MenuProps {
   ref?: any;
@@ -23,8 +23,8 @@ export const HeaderMenu = ({ items, pathname, Link, inverted, dispatch}: HeaderM
           const hasChildren = (item.children) ? true : false;
           if (hasChildren) {
             const children = item.children.slice();
-            return <DropdownCustom 
-            as={Menu.Item} 
+            return <DropdownCustom
+            key={item.path}
             text={item.name} 
             className="mobile hidden" 
             item 
@@ -46,6 +46,7 @@ export const HeaderMenu = ({ items, pathname, Link, inverted, dispatch}: HeaderM
           if (item.name=="Liste de Mariage"){ {/* || item.name=="Comment venir ?"){ */}
             return  <Menu.Item
             as={"a"}
+            key={item.path}
             className="mobile hidden"
             href={item.path}
             active={active}

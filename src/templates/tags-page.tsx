@@ -8,7 +8,7 @@ export const pageQuery = graphql`
 query TemplateTagPage($tag: String) {
   # Get tags
   tags: allMarkdownRemark(filter: {frontmatter: {draft: {ne: true}}}) {
-    group(field: frontmatter___tags) {
+    group(field: {frontmatter: {tags: SELECT}}) {
       fieldValue
       totalCount
     }
@@ -16,7 +16,7 @@ query TemplateTagPage($tag: String) {
 
   # Get posts
   posts: allMarkdownRemark(
-    sort: { order: DESC, fields: [frontmatter___updatedDate] },
+    sort: {frontmatter: {updatedDate: DESC}},
     filter: {
       frontmatter: {
         draft: { ne: true }
@@ -38,21 +38,19 @@ query TemplateTagPage($tag: String) {
           image {
           	children {
               ... on ImageSharp {
-                fixed(width: 700, height: 100) {
-                  src
-                  srcSet
-                }
+                fixed: resize(width: 700, height: 100, cropFocus: CENTER) {
+                    src
+                  }
               }
             }
           }
           author {
-            id
+            id: jsonId
             avatar {
               children {
                 ... on ImageSharp {
-                  fixed(width: 35, height: 35) {
+                  fixed: resize(width: 35, height: 35, cropFocus: CENTER) {
                     src
-                    srcSet
                   }
                 }
               }

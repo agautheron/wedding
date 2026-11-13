@@ -19,7 +19,11 @@ export default class HeroImage extends Component {
   }
 }
 
-const HeroImageWrapper = styled.div`
+const heroProps = ['imageSrc', 'gradientDirection', 'childrenStyles', 'parallax', 'textPosition', 'color', 'opacity', 'height'];
+
+const HeroImageWrapper = styled.div.withConfig({
+  shouldForwardProp: prop => !heroProps.includes(prop)
+})`
 	align-items: center;
 	background-position: center center;
 	background-repeat: no-repeat;

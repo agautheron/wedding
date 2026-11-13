@@ -21,7 +21,7 @@ const IndexPage = (props: LayoutProps) =>
        <HeaderMenu
         Link={Link} pathname={props.location.pathname} items={menuItems} inverted
 	 /> */}
-     {/* <Container > class="header">
+     {/* <Container > className="header">
 	  <Background image={"https://upload.wikimedia.org/wikipedia/commons/c/ca/MoulindeBully001.JPG"}>
 	  <ImageBackground source={{uri:'https://upload.wikimedia.org/wikipedia/commons/c/ca/MoulindeBully001.JPG'}} style={{width: '100%', height: '100%'}}>
         <Header inverted as="h1">Le Cocktail</Header>
@@ -96,7 +96,7 @@ const IndexPage = (props: LayoutProps) =>
             <p>
               Nous serons contents de vous entendre chanter à plein poumons.<br/>
               Pour vous aider : <br/>
-              <iframe height="auto" width="max-content" src="https://www.youtube.com/embed/mYIWiqhTB2g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe height="auto" width="max-content" src="https://www.youtube.com/embed/mYIWiqhTB2g" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                 </p>
             </Grid.Column>
             <Grid.Column width="8">
@@ -105,7 +105,7 @@ const IndexPage = (props: LayoutProps) =>
             <p>
             Si vous souhaitez apprendre différentes voix : 
             <Image
-              src={withPrefix('/icons/partition.jpg')}
+              src={withPrefix('/icons/partition.png')}
               as='a'
               size='medium'
               href='http://google.com'

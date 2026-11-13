@@ -7,7 +7,7 @@ module.exports = {
     disqus: `gatsby-typescript`
   },
   mapping: {
-    'MarkdownRemark.frontmatter.author': `AuthorJson`
+    'MarkdownRemark.frontmatter.author': `AuthorJson.jsonId`
   },
   plugins: [
     // Expose `/data` to graphQL layer
@@ -19,18 +19,6 @@ module.exports = {
       }
     },
 
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
-        // Puts tracking script in the head instead of the body
-        head: false,
-        // Setting this parameter is optional
-        anonymize: true,
-        // Setting this parameter is also optional
-        respectDNT: true
-      }
-    },
 
     // Parse all markdown files (each plugin add/parse some data into graphQL layer)
     {
@@ -65,8 +53,9 @@ module.exports = {
     // Parse JSON files
     `gatsby-transformer-json`,
 
-    // Add typescript stack into webpack
-    `gatsby-plugin-typescript`,
+    // TypeScript est pris en charge nativement par Gatsby 5.
+    // Styles styled-components rendus côté serveur (HeroImage)
+    `gatsby-plugin-styled-components`,
 
     // This plugin takes your configuration and generates a
     // web manifest file so your website can be added to your
@@ -80,7 +69,8 @@ module.exports = {
         start_url: `/`,
         background_color: `#f7f7f7`,
         theme_color: `#191919`,
-        display: `minimal-ui`
+        display: `minimal-ui`,
+        icon: `src/images/icon.png`
       }
     },
     /* eslint-enable camelcase */

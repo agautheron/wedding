@@ -8,7 +8,7 @@ author: Fabien BERNARD
 tags:
   - chambre
   - gîte
-image: laPetiteMaison.jpg
+image: LaPetiteMaison.jpg
 draft: false
 ---
 

@@ -21,7 +21,7 @@ const IndexPage = (props: LayoutProps) =>
        <HeaderMenu
         Link={Link} pathname={props.location.pathname} items={menuItems} inverted
 	 /> */}
-     {/* <Container > class="header">
+     {/* <Container > className="header">
 	  <Background image={"https://upload.wikimedia.org/wikipedia/commons/c/ca/MoulindeBully001.JPG"}>
 	  <ImageBackground source={{uri:'https://upload.wikimedia.org/wikipedia/commons/c/ca/MoulindeBully001.JPG'}} style={{width: '100%', height: '100%'}}>
         <Header inverted as="h1">Le Cocktail</Header>

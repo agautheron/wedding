@@ -1,17 +1,14 @@
 import { Link ,  withPrefix } from "gatsby";
 import * as React from "react";
-import {Fragment, useEffect, useRef, useState, Visibility,Component  } from 'react';
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import SidebarMenu from "./SidebarMenu/SidebarMenu";
-import { Segment, Container, Sidebar,Ref } from "semantic-ui-react";
+import { Segment, Container, Sidebar } from "semantic-ui-react";
 import "../css/styles.css";
 import "../css/responsive.css";
 import "../css/semantic.min.css";
 import "../css/background.css";
 import "../css/all.min.css";
 import "prismjs/themes/prism-okaidia.css";
-import { Provider } from "react-redux";
-import { store } from "../store";
 {/* export const subMenuItems = [
   {name: "Cérémonie", path: "/messe/", exact: true, icon: "fas fa-church", inverted: true},
   {name: "Cocktail", path:  "/cocktail/", exact: true, icon: "fas fa-glass-cheers", inverted: true},
@@ -32,6 +29,11 @@ export const menuItems = [
   {name: "Autour du Mariage", path:'/', exact:true, icon : 'fas fa-circle-notch', inverted:true, children:subItems}
 ];
 
+// Retrouve l'entrée de menu (ou de sous-menu) d'une page à partir de son chemin.
+export const findMenuItem = (path: string) =>
+  [...menuItems, ...subItems].find((item) => item.path === path) ||
+  { name: "", path, exact: true, icon: "", inverted: true };
+
 export interface LayoutProps {
   location: {
     pathname: string;
@@ -44,7 +46,6 @@ const Layout = (props: LayoutProps) => {
   const isHome = (pathname === withPrefix("/")) ; {/* || (pathname === "/messe/") || (pathname="/cocktail/"); */}
   
   return (
-    <Provider store={store}>
       <div>
           <HeaderMenu Link={Link}
                 pathname={pathname}
@@ -65,7 +66,7 @@ const Layout = (props: LayoutProps) => {
                       />
   </div> */}
           {/* Render children pages */}
-          <div style={{ paddingBottom: 60 }} class="mainContent">
+          <div style={{ paddingBottom: 60 }} className="mainContent">
             {props.children}
           </div>
 
@@ -78,7 +79,6 @@ const Layout = (props: LayoutProps) => {
         </Sidebar.Pusher>
       </Sidebar.Pushable>
       </div>
-    </Provider>
   );
 };
 
@@ -88,7 +88,7 @@ export const withLayout = <P extends object>(WrappedComponent: React.ComponentTy
   class WithLayout extends React.Component<P & LayoutProps> {
     render() {
       return (
-        <Layout location={this.props.location} ref={React.createRef()}>
+        <Layout location={this.props.location}>
           <WrappedComponent {...this.props} />
         </Layout>
       );
