@@ -3,6 +3,8 @@ name: Build et publication du site
 on:
   push:
     branches: [master]
+  # Lancement manuel depuis l'onglet Actions
+  workflow_dispatch:
 
 # Droits nécessaires pour publier sur GitHub Pages
 permissions:

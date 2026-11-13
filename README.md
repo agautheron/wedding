@@ -19,7 +19,7 @@ npm test               # vérifie l'intégrité des données (data/)
 
 ## Publication
 
-Chaque push sur `master` déclenche `.github/workflows/deploy.yml`, qui installe
+Chaque push sur `master` (ou un lancement manuel depuis l’onglet Actions) déclenche `.github/workflows/deploy.yml`, qui installe
 les dépendances, lance les tests, construit le site et le publie sur GitHub Pages
 (<https://agautheron.github.io/gatsby-starter/>).
 
