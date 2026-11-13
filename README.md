@@ -14,9 +14,17 @@ npm install            # installe les dépendances
 npm start              # serveur de dev sur http://localhost:8000
 npm run build          # build de production dans public/ (avec le préfixe)
 npm run serve          # sert le build sur http://localhost:9000/gatsby-starter/
-npm run build:docs     # rebuild + copie dans docs/ pour GitHub Pages
 npm test               # vérifie l'intégrité des données (data/)
 ```
+
+## Publication
+
+Chaque push sur `master` déclenche `.github/workflows/deploy.yml`, qui installe
+les dépendances, lance les tests, construit le site et le publie sur GitHub Pages
+(<https://agautheron.github.io/gatsby-starter/>).
+
+Prérequis (une seule fois) : dans **Settings → Pages**, choisir
+**Source : GitHub Actions**.
 
 Les images statiques (bandeaux des pages Cérémonie, Cocktail, Transport) sont
 dans `static/icons/`.
