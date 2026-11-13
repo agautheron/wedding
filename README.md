@@ -1,7 +1,7 @@
 # Marie & Arthur — site du mariage
 
 Site statique Gatsby 5 (React 18, Semantic UI React 2), publié sur GitHub Pages
-sous le préfixe `/gatsby-starter` (dossier `docs/`).
+sous le préfixe `/wedding` (dossier `docs/`).
 
 ## Prérequis
 
@@ -13,7 +13,7 @@ sous le préfixe `/gatsby-starter` (dossier `docs/`).
 npm install            # installe les dépendances
 npm start              # serveur de dev sur http://localhost:8000
 npm run build          # build de production dans public/ (avec le préfixe)
-npm run serve          # sert le build sur http://localhost:9000/gatsby-starter/
+npm run serve          # sert le build sur http://localhost:9000/wedding/
 npm test               # vérifie l'intégrité des données (data/)
 ```
 
@@ -21,7 +21,7 @@ npm test               # vérifie l'intégrité des données (data/)
 
 Chaque push sur `master` (ou un lancement manuel depuis l’onglet Actions) déclenche `.github/workflows/deploy.yml`, qui installe
 les dépendances, lance les tests, construit le site et le publie sur GitHub Pages
-(<https://agautheron.github.io/gatsby-starter/>).
+(<https://agautheron.github.io/wedding/>).
 
 Prérequis (une seule fois) : dans **Settings → Pages**, choisir
 **Source : GitHub Actions**.

@@ -1,6 +1,6 @@
 module.exports = {
   
-  pathPrefix: `/gatsby-starter`,
+  pathPrefix: `/wedding`,
   siteMetadata: {
     title: `Marie & Arthur`,
     googleVerification: `abcdefz`,
